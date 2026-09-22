@@ -12,7 +12,7 @@
 
         public float runtime { get; set; }// Movie's runtime
 
-        public DateTime releases {  get; set; } = DateTime.Now;// The date the movie came out 
+        public DateTime releases {  get; set; } = DateTime.Now;// The date the movie came out
 
 
     }
