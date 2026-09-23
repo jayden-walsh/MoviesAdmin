@@ -1,18 +1,18 @@
 ﻿namespace MoviesAdmin.Models
 {
-    public class Movie
+    public class Movie //id needed
     {
         public string Title { get; set; } = string.Empty;// The Title of the movie
 
-        public string rating { get; set; } = string.Empty;// The rating for the movie like pg 13+
+        public string Rating { get; set; } = string.Empty;// The rating for the movie like pg 13+
 
-        public string description { get; set; } = string.Empty;// A small description for the movie
+        public string Description { get; set; } = string.Empty;// A small description for the movie
 
-        public string genre { get; set; } = string.Empty;// The genre for the movie
+        public string Genre { get; set; } = string.Empty;// The genre for the movie
 
-        public float runtime { get; set; }// Movie's runtime
+        public int Runtime { get; set; }// Movie's runtime
 
-        public DateTime releases {  get; set; } = DateTime.Now;// The date the movie came out
+        public DateTime Releases {  get; set; } = DateTime.Now;// The date the movie came out
 
 
     }
