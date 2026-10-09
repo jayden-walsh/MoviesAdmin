@@ -1,0 +1,33 @@
+@page
+@model MoviesAdmin.Models.catlogsListModel
+@{
+    ViewData["Title"] = "List catlogs";
+}
+
+<h2>List catlogs</h2>
+<p>
+    <a asp-action="Create" class="btn btn-primary">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Other column</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.catlogs)
+        {
+            <tr>
+                <td>@item.ID</td>
+                <td>@item.OtherColumn</td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
+                    <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
+                    <a asp-action="Delete" asp-route-id="@item.ID" onclick="return confirm('Are you sure?')">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

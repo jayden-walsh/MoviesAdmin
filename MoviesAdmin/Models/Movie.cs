@@ -29,6 +29,7 @@ namespace MoviesAdmin.Models
         
         public DateTime Releases {  get; set; } = DateTime.Now;// The date the movie came out
 
+        public string ImageUrl { get; set; } = string.Empty;//for the image
 
     }
 }

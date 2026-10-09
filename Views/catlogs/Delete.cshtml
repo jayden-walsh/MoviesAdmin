@@ -1,0 +1,22 @@
+@page
+@model MoviesAdmin.Models.catlogsDeleteModel
+@{
+    ViewData["Title"] = "Delete catlogs";
+}
+
+<h2>Delete catlogs</h2>
+
+<form asp-action="Delete" method="post">
+    <input type="hidden" asp-for="ID" />
+    <div class="form-group">
+        <label asp-for="ID" class="control-label"></label>
+        <input asp-for="ID" class="form-control" readonly />
+        <span asp-validation-for="ID" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Delete" class="btn btn-danger" />
+    </div>
+</form>
+<p>
+    <a asp-action="Index">Back to List</a>
+</p>

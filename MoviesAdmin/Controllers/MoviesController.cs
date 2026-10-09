@@ -1,22 +1,33 @@
 
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MoviesAdmin.Models;
+using MoviesAdmin.Service;
 
+[Authorize]
 public class MoviesController : Controller
 {
     private readonly MoviesAdminContext _context;
-
-    public MoviesController(MoviesAdminContext context)
+    private readonly AzureStrorageService _azureStorageService;
+    public MoviesController(MoviesAdminContext context, AzureStrorageService azureStrorage)
     {
         _context = context;
+        _azureStorageService = _azureStorageService;
     }
 
-    // GET: MOVIES
-    public async Task<IActionResult> Index()    
+
+    //GET: MOVIES
+    public async Task<IActionResult> Index()
     {
+        List<Movie> movies = await _context.Movie
+          .Include(m => m.catlogs) //populate the nav property
+          .ToListAsync();
+
         return View(await _context.Movie.ToListAsync());
     }
+
+
 
     // GET: MOVIES/Details/5
     public async Task<IActionResult> Details(int? id)
@@ -27,13 +38,14 @@ public class MoviesController : Controller
         }
 
         var movie = await _context.Movie
-            .FirstOrDefaultAsync(m => m.ID == id);
+        .FirstOrDefaultAsync(m => m.ID == id);
         if (movie == null)
         {
             return NotFound();
         }
 
         return View(movie);
+
     }
 
     // GET: MOVIES/Create
@@ -47,12 +59,20 @@ public class MoviesController : Controller
     // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Create([Bind("ID,Title,Rating,Description,Genre,Runtime,Releases")] Movie movie)
+    public async Task<IActionResult> Create([Bind("ID,Title,Rating,Description,Genre,Runtime,Releases")] Movie movie, IFormFile? ImageUpload)
     {
-        if (ModelState.IsValid)
+
+        if (ModelState.IsValid)// to vaid
         {
+            string filename = ImageUpload.FileName;
+            string url = await _azureStorageService.UploadFileAsync(ImageUpload, filename);
+
+            movie.ImageUrl = url;
+
             _context.Add(movie);
+            
             await _context.SaveChangesAsync();
+            
             return RedirectToAction(nameof(Index));
         }
         return View(movie);
