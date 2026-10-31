@@ -27,7 +27,7 @@ public class MoviesController : Controller
         return View(await _context.Movie.ToListAsync());
     }
 
-
+    //for git psuh
 
     // GET: MOVIES/Details/5
     public async Task<IActionResult> Details(int? id)
