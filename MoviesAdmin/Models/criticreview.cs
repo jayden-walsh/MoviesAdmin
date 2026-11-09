@@ -1,8 +1,15 @@
-﻿namespace MoviesAdmin.Models
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System.ComponentModel.DataAnnotations;
+
+namespace MoviesAdmin.Models
 {
     public class criticreview
     {
-        public int Id { get; set; }
+
+        [Key]
+        public int ReivewsId { get; set; }
+
+
 
         public string Description { get; set; }
 
@@ -13,5 +20,7 @@
         public int  madeData { get; set; }
 
         public bool IsPublished { get; set; }
+        [ValidateNever]
+        public Movie Movie { get; set; } = null!;
     }
 }

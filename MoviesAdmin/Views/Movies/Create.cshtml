@@ -12,7 +12,7 @@
     <div class="col-md-4">
         <form asp-action="Create" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-
+            </form>
             <div class="mb-3"> //mb-3
                 <label asp-for="Title" class="control-label"></label>//form-label
                 <input asp-for="Title" class="form-control" />
@@ -49,15 +49,13 @@
                 <input asp-for="Releases" class="form-control" />
                 <span asp-validation-for="Releases" class="text-danger"></span>
             </div>
-
-            <div class="mb-3">
+            @* <div class="mb-3"> *@
                 <label for="MoviePoster">image upload</label>
                 <input type="file" id="MoviePoster" name="MoviePoster" class="form-control"/>
             </div>
             <div class="mb-3">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
-        </form>
     </div>
 </div>
 

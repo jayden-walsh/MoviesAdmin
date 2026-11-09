@@ -1,20 +1,20 @@
-@page
-@model MoviesAdmin.Models.catlogsDetailsModel
+@model MoviesAdmin.Models.catlogs
 @{
-    ViewData["Title"] = "Details catlogs";
+    ViewData["Title"] = "Catalog Details";
 }
 
-<h2>Details catlogs</h2>
+<h1>Catalog Details</h1>
 <div>
-    <h4>catlogs</h4>
+    <h4>Catalog</h4>
     <hr />
     <dl class="row">
-        <dt class="col-sm-2">ID</dt>
-        <dd class="col-sm-10">@Model.catlogs.ID</dd>
-        <dt class="col-sm-2">Other column</dt>
-        <dd class="col-sm-10">@Model.catlogs.OtherColumn</dd>
+        <dt class="col-sm-2">@Html.DisplayNameFor(model => model.catlogId)</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.catlogId)</dd>
+        <dt class="col-sm-2">@Html.DisplayNameFor(model => model.Title)</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.Title)</dd>
     </dl>
 </div>
 <p>
+    <a asp-action="Edit" asp-route-id="@Model.catlogId">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </p>

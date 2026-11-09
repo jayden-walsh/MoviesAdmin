@@ -1,18 +1,18 @@
-@page
-@model MoviesAdmin.Models.catlogsEditModel
+@model MoviesAdmin.Models.catlogs
 @{
-    ViewData["Title"] = "Edit catlogs";
+    ViewData["Title"] = "Edit Catalog";
 }
 
-<h2>Edit catlogs</h2>
+<h1>Edit Catalog</h1>
 
-<form asp-action="Edit">
-    <input type="hidden" asp-for="ID" />
+<form asp-action="Edit" method="post">
+    @Html.AntiForgeryToken()
+    <input type="hidden" asp-for="catlogId" />
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <div class="form-group">
-        <label asp-for="OtherColumn" class="control-label"></label>
-        <input asp-for="OtherColumn" class="form-control" />
-        <span asp-validation-for="OtherColumn" class="text-danger"></span>
+        <label asp-for="Title" class="control-label"></label>
+        <input asp-for="Title" class="form-control" />
+        <span asp-validation-for="Title" class="text-danger"></span>
     </div>
     <div class="form-group">
         <input type="submit" value="Save" class="btn btn-primary" />

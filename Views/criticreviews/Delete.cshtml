@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Delete criticreview</title>
+</head>
+<body>
+    <h2>Delete criticreview</h2>
+    <p><strong>Id:</strong> @Model.Id</p>
+    <p><strong>MovieId:</strong> @Model.MovieId</p>
+    <p><strong>CriticName:</strong> @Model.CriticName</p>
+    <p><strong>ReviewText:</strong> @Model.ReviewText</p>
+    <p><strong>Rating:</strong> @Model.Rating</p>
+    <form asp-action="DeleteConfirmed" method="post">
+        <input type="hidden" name="__RequestVerificationToken" value="" />
+        <button type="submit">Delete</button>
+    </form>
+    <a asp-action="Index">Back to List</a>
+</body>
+</html>

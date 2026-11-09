@@ -1,6 +1,11 @@
 using Microsoft.EntityFrameworkCore;
+using MoviesAdmin.Models;
 
 public class MoviesAdminContext(DbContextOptions<MoviesAdminContext> options) : DbContext(options)
 {
     public DbSet<MoviesAdmin.Models.Movie> Movie { get; set; } = default!;
+    public DbSet<catlogs> catlogs { get; set; } = default!;
+
+    public DbSet<catlogs> criticreview { get; set; } = default!;
+
 }

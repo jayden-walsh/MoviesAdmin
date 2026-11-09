@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using MoviesAdmin.Models;
 using MoviesAdmin.Service;
 
-[Authorize]
+//[Authorize]
 public class MoviesController : Controller
 {
     private readonly MoviesAdminContext _context;
@@ -21,13 +21,13 @@ public class MoviesController : Controller
     public async Task<IActionResult> Index()
     {
         List<Movie> movies = await _context.Movie
-          .Include(m => m.catlogs) //populate the nav property
+          .Include(m => m.catlogs)
           .ToListAsync();
 
         return View(await _context.Movie.ToListAsync());
     }
 
-    //for git psuh
+    //for git 
 
     // GET: MOVIES/Details/5
     public async Task<IActionResult> Details(int? id)
@@ -99,7 +99,7 @@ public class MoviesController : Controller
     // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Edit(int? id, [Bind("ID,Title,Rating,Description,Genre,Runtime,Releases")] Movie movie)
+    public async Task<IActionResult> Edit(int? id,  Movie movie)
     {
         if (id != movie.ID)
         {
@@ -146,16 +146,16 @@ public class MoviesController : Controller
 
         return View(movie);
     }
-
-    // POST: MOVIES/Delete/5
+    //Delete review admin
     [HttpPost, ActionName("Delete")]
     [ValidateAntiForgeryToken]
+    [Authorize(Roles = "administrator")]
     public async Task<IActionResult> DeleteConfirmed(int? id)
     {
-        var movie = await _context.Movie.FindAsync(id);
-        if (movie != null)
+        var trail = await _context.Movie.FindAsync(id);
+        if (trail != null)
         {
-            _context.Movie.Remove(movie);
+            _context.Movie.Remove(trail);
         }
 
         await _context.SaveChangesAsync();

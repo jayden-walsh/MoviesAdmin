@@ -5,8 +5,8 @@ namespace MoviesAdmin.Models
 {
     public class catlogs
     {
-
-        public int id {  get; set; }
+        [Key]
+        public int catlogId {  get; set; }
 
         // navigation property
         [ValidateNever]
@@ -14,5 +14,6 @@ namespace MoviesAdmin.Models
 
         [Required]
         public string Title { set; get; } = string.Empty;
+        public int? ReivewsId { get; internal set; }
     }
 }

@@ -1,10 +1,13 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System.ComponentModel.DataAnnotations;
 
 
 namespace MoviesAdmin.Models
 {
     public class Movie //id needed
     {
+        internal object catlogs;
+
         [Required]
         public int ID { get; set; }// the Id
 
@@ -14,7 +17,8 @@ namespace MoviesAdmin.Models
      
         public string Rating { get; set; } = string.Empty;// The rating for the movie like pg 13+
 
-
+        [ValidateNever]
+        public catlogs Category { get; set; } = null!;
         [Required]
         public string Description { get; set; } = string.Empty;// A small description for the movie
 

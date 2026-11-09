@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using MoviesAdmin.Models;
-using MoviesAdmin.Data;
-using System.Diagnostics;
 
 namespace MoviesAdmin.Controllers
 {
@@ -15,20 +14,22 @@ namespace MoviesAdmin.Controllers
         }
 
         // GET: catlogs
-        public async Task< IActionResult> Index()
+        public async Task<IActionResult> Index()
         {
-            return View(await _context.catlogs.ToListAsync());
+            return View(await _context.catlogs.AsNoTracking().ToListAsync());
         }
 
         // GET: catlogs/Details/5
-        public async Task< IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.catlogs == null)
+            if (id == null)
             {
                 return NotFound();
             }
 
-            var catlogs = await _context.catlogs.FindAsync(id);
+            var catlogs = await _context.catlogs
+                .AsNoTracking()
+                .FirstOrDefaultAsync(m => m.catlogId == id);
             if (catlogs == null)
             {
                 return NotFound();
@@ -46,7 +47,7 @@ namespace MoviesAdmin.Controllers
         // POST: catlogs/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task< IActionResult> Create([Bind("ID")] catlogs catlogs)
+        public async Task<IActionResult> Create([Bind("Title")] catlogs catlogs)
         {
             if (ModelState.IsValid)
             {
@@ -59,9 +60,9 @@ namespace MoviesAdmin.Controllers
         }
 
         // GET: catlogs/Edit/5
-        public async Task< IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.catlogs == null)
+            if (id == null)
             {
                 return NotFound();
             }
@@ -78,8 +79,13 @@ namespace MoviesAdmin.Controllers
         // POST: catlogs/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task< IActionResult> Edit([Bind("ID")] catlogs catlogs)
+        public async Task<IActionResult> Edit(int id, [Bind("catlogId,Title")] catlogs catlogs)
         {
+            if (id != catlogs.catlogId)
+            {
+                return NotFound();
+            }
+
             if (ModelState.IsValid)
             {
                 try
@@ -89,7 +95,7 @@ namespace MoviesAdmin.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!catlogsExists(catlogs.ID))
+                    if (!catlogsExists(catlogs.catlogId))
                     {
                         return NotFound();
                     }
@@ -105,14 +111,16 @@ namespace MoviesAdmin.Controllers
         }
 
         // GET: catlogs/Delete/5
-        public async Task< IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.catlogs == null)
+            if (id == null)
             {
                 return NotFound();
             }
 
-            var catlogs = await _context.catlogs.FindAsync(id);
+            var catlogs = await _context.catlogs
+                .AsNoTracking()
+                .FirstOrDefaultAsync(m => m.catlogId == id);
             if (catlogs == null)
             {
                 return NotFound();
@@ -124,13 +132,8 @@ namespace MoviesAdmin.Controllers
         // POST: catlogs/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task< IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.catlogs == null)
-            {
-                return Problem("Entity set 'MoviesAdminContext.catlogs'  is null.");
-            }
-
             var catlogs = await _context.catlogs.FindAsync(id);
             if (catlogs != null)
             {
@@ -143,7 +146,7 @@ namespace MoviesAdmin.Controllers
 
         private bool catlogsExists(int id)
         {
-            return _context.catlogs.Any(e => e.ID == id);
+            return _context.catlogs.Any(e => e.catlogId == id);
         }
     }
 }

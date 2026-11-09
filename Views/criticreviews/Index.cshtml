@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>criticreviews</title>
+</head>
+<body>
+    <h2>criticreviews</h2>
+    <a asp-action="Create">Create New</a>
+    <table>
+        <tr>
+            <th>Id</th>
+            <th>MovieId</th>
+            <th>CriticName</th>
+            <th>ReviewText</th>
+            <th>Rating</th>
+            <th></th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.MovieId</td>
+                <td>@item.CriticName</td>
+                <td>@item.ReviewText</td>
+                <td>@item.Rating</td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </table>
+</body>
+</html>
